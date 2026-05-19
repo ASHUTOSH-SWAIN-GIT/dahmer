@@ -1,0 +1,32 @@
+{
+  "name": "dahmer",
+  "version": "0.1.0",
+  "description": "Find and kill the process bound to a TCP port",
+  "bin": {
+    "dahmer": "bin/dahmer.js"
+  },
+  "files": [
+    "bin/dahmer.js",
+    "README.md"
+  ],
+  "keywords": [
+    "port",
+    "kill",
+    "lsof",
+    "netstat",
+    "cli",
+    "tui"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=14"
+  },
+  "optionalDependencies": {
+    "dahmer-darwin-arm64": "0.1.0",
+    "dahmer-darwin-x64": "0.1.0",
+    "dahmer-linux-arm64": "0.1.0",
+    "dahmer-linux-x64": "0.1.0",
+    "dahmer-win32-arm64": "0.1.0",
+    "dahmer-win32-x64": "0.1.0"
+  }
+}
