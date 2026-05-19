@@ -3,47 +3,87 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"strconv"
 
 	"github.com/ashutosh-swain-git/dahmer/internal/port"
+	"github.com/ashutosh-swain-git/dahmer/internal/ports"
 	"github.com/ashutosh-swain-git/dahmer/internal/ui"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/cobra"
 )
 
-var rootCmd = &cobra.Command{
-	Use:   "dahmer <port> [kill]",
-	Short: "Find and kill the process bound to a TCP port",
-	Long: `dahmer inspects the process listening on a TCP port.
+var force bool
 
-  dahmer 3000        show the PID and command holding port 3000
-  dahmer 3000 kill   terminate that process (SIGTERM)`,
-	Args:          cobra.RangeArgs(1, 2),
+var rootCmd = &cobra.Command{
+	Use:   "dahmer <port|range>... [kill]",
+	Short: "Find and kill the process bound to a TCP port",
+	Long: `dahmer inspects and kills processes listening on TCP ports.
+
+  dahmer 3000              show what holds port 3000
+  dahmer 3000 3001 8080    show multiple ports
+  dahmer 3000-3010         show a range
+  dahmer 3000 kill         SIGTERM the process on 3000
+  dahmer 3000-3010 kill    SIGTERM every process in the range
+  dahmer 3000 kill -f      SIGKILL instead
+  dahmer ls                list every listening TCP port`,
+	Args:          cobra.MinimumNArgs(1),
+	SilenceUsage:  true,
+	SilenceErrors: true,
+	RunE:          runRoot,
+}
+
+var lsCmd = &cobra.Command{
+	Use:           "ls",
+	Short:         "List every process listening on a TCP port",
+	Args:          cobra.NoArgs,
 	SilenceUsage:  true,
 	SilenceErrors: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		p, err := strconv.Atoi(args[0])
-		if err != nil || p < 1 || p > 65535 {
-			return fmt.Errorf("invalid port %q (must be 1-65535)", args[0])
+		procs, err := port.ListAll()
+		if err != nil {
+			return err
 		}
+		_, err = tea.NewProgram(ui.NewList(procs)).Run()
+		return err
+	},
+}
 
-		mode := ui.ModeShow
-		if len(args) == 2 {
-			if args[1] != "kill" {
-				return fmt.Errorf("unknown subcommand %q (expected `kill`)", args[1])
-			}
-			mode = ui.ModeKill
+func runRoot(cmd *cobra.Command, args []string) error {
+	mode := ui.ModeShow
+	if args[len(args)-1] == "kill" {
+		mode = ui.ModeKill
+		args = args[:len(args)-1]
+		if len(args) == 0 {
+			return fmt.Errorf("`kill` requires at least one port")
 		}
+	}
 
+	parsed, err := ports.Parse(args)
+	if err != nil {
+		return err
+	}
+
+	entries := make([]ui.Entry, 0, len(parsed))
+	for _, p := range parsed {
 		proc, err := port.Lookup(p)
 		if err != nil {
 			return err
 		}
+		entries = append(entries, ui.Entry{Port: p, Proc: proc})
+	}
 
-		prog := tea.NewProgram(ui.New(mode, p, proc))
-		_, err = prog.Run()
-		return err
-	},
+	var m tea.Model
+	if mode == ui.ModeKill {
+		m = ui.NewKill(entries, force)
+	} else {
+		m = ui.NewShow(entries)
+	}
+	_, err = tea.NewProgram(m).Run()
+	return err
+}
+
+func init() {
+	rootCmd.Flags().BoolVarP(&force, "force", "f", false, "use SIGKILL instead of SIGTERM")
+	rootCmd.AddCommand(lsCmd)
 }
 
 func Execute() {
