@@ -36,6 +36,11 @@ for row in "${TARGETS[@]}"; do
   "version": "${VERSION}",
   "description": "dahmer prebuilt binary for ${NPM_OS}-${NPM_ARCH}",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASHUTOSH-SWAIN-GIT/dahmer.git"
+  },
+  "homepage": "https://github.com/ASHUTOSH-SWAIN-GIT/dahmer",
   "os": ["${NPM_OS}"],
   "cpu": ["${NPM_ARCH}"],
   "files": ["bin/${BIN}"]

@@ -18,6 +18,14 @@
     "tui"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASHUTOSH-SWAIN-GIT/dahmer.git"
+  },
+  "homepage": "https://github.com/ASHUTOSH-SWAIN-GIT/dahmer",
+  "bugs": {
+    "url": "https://github.com/ASHUTOSH-SWAIN-GIT/dahmer/issues"
+  },
   "engines": {
     "node": ">=14"
   },
