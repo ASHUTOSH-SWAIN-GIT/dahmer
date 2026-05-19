@@ -7,7 +7,7 @@ const fs = require("fs");
 
 function resolveBinary() {
   const { platform, arch } = process;
-  const pkgName = `dahmer-${platform}-${arch}`;
+  const pkgName = `@dahmercli/${platform}-${arch}`;
   const binName = platform === "win32" ? "dahmer.exe" : "dahmer";
 
   try {

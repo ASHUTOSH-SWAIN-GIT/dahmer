@@ -1,8 +1,13 @@
 {
-  "name": "dahmer-darwin-x64",
+  "name": "@dahmercli/darwin-x64",
   "version": "0.1.0",
   "description": "dahmer prebuilt binary for darwin-x64",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASHUTOSH-SWAIN-GIT/dahmer.git"
+  },
+  "homepage": "https://github.com/ASHUTOSH-SWAIN-GIT/dahmer",
   "os": ["darwin"],
   "cpu": ["x64"],
   "files": ["bin/dahmer"]

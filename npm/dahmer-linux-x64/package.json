@@ -1,8 +1,13 @@
 {
-  "name": "dahmer-linux-x64",
+  "name": "@dahmercli/linux-x64",
   "version": "0.1.0",
   "description": "dahmer prebuilt binary for linux-x64",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASHUTOSH-SWAIN-GIT/dahmer.git"
+  },
+  "homepage": "https://github.com/ASHUTOSH-SWAIN-GIT/dahmer",
   "os": ["linux"],
   "cpu": ["x64"],
   "files": ["bin/dahmer"]

@@ -1,8 +1,13 @@
 {
-  "name": "dahmer-win32-x64",
+  "name": "@dahmercli/win32-x64",
   "version": "0.1.0",
   "description": "dahmer prebuilt binary for win32-x64",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASHUTOSH-SWAIN-GIT/dahmer.git"
+  },
+  "homepage": "https://github.com/ASHUTOSH-SWAIN-GIT/dahmer",
   "os": ["win32"],
   "cpu": ["x64"],
   "files": ["bin/dahmer.exe"]

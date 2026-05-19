@@ -30,11 +30,11 @@
     "node": ">=14"
   },
   "optionalDependencies": {
-    "dahmer-darwin-arm64": "0.1.0",
-    "dahmer-darwin-x64": "0.1.0",
-    "dahmer-linux-arm64": "0.1.0",
-    "dahmer-linux-x64": "0.1.0",
-    "dahmer-win32-arm64": "0.1.0",
-    "dahmer-win32-x64": "0.1.0"
+    "@dahmercli/darwin-arm64": "0.1.0",
+    "@dahmercli/darwin-x64": "0.1.0",
+    "@dahmercli/linux-arm64": "0.1.0",
+    "@dahmercli/linux-x64": "0.1.0",
+    "@dahmercli/win32-arm64": "0.1.0",
+    "@dahmercli/win32-x64": "0.1.0"
   }
 }

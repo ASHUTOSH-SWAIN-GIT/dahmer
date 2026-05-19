@@ -32,7 +32,7 @@ for row in "${TARGETS[@]}"; do
 
   cat > "$pkg/package.json" <<JSON
 {
-  "name": "dahmer-${NPM_OS}-${NPM_ARCH}",
+  "name": "@dahmercli/${NPM_OS}-${NPM_ARCH}",
   "version": "${VERSION}",
   "description": "dahmer prebuilt binary for ${NPM_OS}-${NPM_ARCH}",
   "license": "MIT",
